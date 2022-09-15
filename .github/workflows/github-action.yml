@@ -1,0 +1,52 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Gradle
+
+on:
+    push:
+        branches: [master]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install and Build
+              uses: actions/setup-node@v1
+            - name: npm install
+              run: npm install
+            - name: Build node project
+              run: npm run build
+            - name: copy file via ssh password
+              uses: appleboy/scp-action@master
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USERNAME }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  port: ${{ secrets.SERVER_PORT }}
+                  source: "build/*"
+                  target: "~/sanpa-front"
+            - name: Deploy FastApi MainServer(master)
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USERNAME }}
+                  key: ${{ secrets.SERVER_SSH_KEY }}
+                  port: ${{ secrets.SERVER_PORT }}
+                  script: |
+                      cd ~/sanpa-front
+                      docker build -t sanpa/sanpa-front-image .
+                      docker stop sanpa-front
+                      docker rm sanpa-front --force
+                      docker run -d -p 3000:3000 --name sanpa-front sanpa/sanpa-front-image
+                      docker image prune
+            - name: Get Current Time
+              uses: 1466587594/get-current-time@v2
+              id: current-time
+              with:
+                  format: YYYY-MM-DDTHH:mm:ss
+                  utcOffset: "+09:00"
+
+            - name: Print Current Time
+              run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}"
+              shell: bash
