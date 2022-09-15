@@ -24,7 +24,7 @@ jobs:
                   username: ${{ secrets.SERVER_USERNAME }}
                   key: ${{ secrets.SERVER_SSH_KEY }}
                   port: ${{ secrets.SERVER_PORT }}
-                  source: "build/*"
+                  source: ".next/*"
                   target: "~/sanpa-front"
             - name: Deploy FastApi MainServer(master)
               uses: appleboy/ssh-action@master
