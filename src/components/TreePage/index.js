@@ -1,5 +1,6 @@
 import React from "react";
 import Tree from "react-d3-tree";
+
 import style from "./css/tree.css";
 
 const orgChart = {
@@ -82,8 +83,8 @@ const getActivateClassName = (percent) => {
     : "";
 };
 export default function TreePage() {
+  // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
   return (
-    // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
     <div id="treeWrapper">
       <Tree
         css={style}
