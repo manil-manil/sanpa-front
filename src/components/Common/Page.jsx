@@ -6,12 +6,9 @@ import { BASIC_CONSTANT } from "../../utils/basic.constants";
 import { userInfo } from "../../recoil/user";
 import Layout from "../Layouts";
 
-export default function Page({
-  variant = "client",
-  children,
-  isPublic = true,
-  title = "",
-}) {
+export default function Page(props) {
+  const { variant = "client", children, isPublic = true, title = "" } = props;
+
   const [user, setUser] = useRecoilState(userInfo);
 
   const udpateUser = (token) => {
