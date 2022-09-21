@@ -11,14 +11,15 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - name: Install and Build
-              uses: actions/setup-node@v1
-            - name: Intall yarn
+            - name: Yarn Install
+              uses: borales/actions-yarn@v3.0.0
+              with:
+                  cmd: install
               run: npm install -g yarn
-            - name: Yarn install
-              run: yarn
-            - name: Build node project
-              run: yarn build
+            - name: Build Project
+              uses: borales/actions-yarn@v3.0.0
+              with:
+                  cmd: build
             - name: copy file via ssh password
               uses: appleboy/scp-action@master
               with:
@@ -52,3 +53,8 @@ jobs:
             - name: Print Current Time
               run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}"
               shell: bash
+            - name: Notification For slack with web hook
+              run: |
+                  curl -X POST https://hooks.slack.com/services/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 \
+                  -H 'Content-Type: application/json' \
+                  -d '{"text": "개발 프론트 배포됐어요 ! 개발 프론트 배포됐어요 !"}'
