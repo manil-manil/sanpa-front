@@ -16,6 +16,7 @@ function path(...options) {
 
 const ROOTS = "";
 const ROOTS_ERROR = "error";
+const ROOTS_AUTH = "oauth";
 
 export const PATH_ERROR = {
   root: path(ROOTS_ERROR, null),
@@ -25,4 +26,10 @@ export const PATH_ERROR = {
 
 export const PATH_PAGE = {
   root: path(ROOTS),
+};
+
+export const PATH_AUTH = {
+  root: path(ROOTS_AUTH),
+  login: path(ROOTS_AUTH, "login"),
+  success: path(ROOTS_AUTH, "success"),
 };
