@@ -35,11 +35,11 @@ jobs:
                   port: ${{ secrets.SERVER_PORT }}
                   script: |
                       cd ~/sanpa-front
-                      docker build -t sanpa/sanpa-front-image .
+                      docker build -t sanpa-front-image .
                       docker stop sanpa-front
                       docker rm sanpa-front --force
-                      docker run -d -p 3000:3000 --name sanpa-front sanpa/sanpa-front-image
-                      docker image prune
+                      docker run -d -p 3000:3000 --name sanpa-front sanpa-front-image
+                      docker image prune -f
             - name: Get Current Time
               uses: 1466587594/get-current-time@v2
               id: current-time
