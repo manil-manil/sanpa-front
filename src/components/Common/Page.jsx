@@ -1,52 +1,32 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
+import Router from "next/router";
 import { useRecoilState } from "recoil";
-import { useQuery } from "@tanstack/react-query";
 
 import { BASIC_CONSTANT } from "../../utils/basic.constants";
 import { userInfo } from "../../recoil/user";
 import Layout from "../Layouts";
+import useGetUser from "../../hooks/useGetUser";
+import { PATH_AUTH } from "../../paths";
 
 export default function Page(props) {
   const { variant = "client", children, isPublic = true, title = "" } = props;
   const [user, setUser] = useRecoilState(userInfo);
-  // const result = useQuery(["api/users"], async () => {
-  //   const response = fetch(`${BASIC_CONSTANT.BACKEND_URL}/api/users`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDUxNjUzNjk1Nzg3OTI1MzM2MjciLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjYzNzM0ODQwfQ.87YvhHvGVaFbGWc81v-DKNTNU10zzrk1pQZly5gfpSQ`,
-  //     },
-  //   });
+  const result = useGetUser(user?.token);
 
-  //   console.log(response.json());
-  //   return response.json();
-  // });
-
-  const udpateUser = async (token) => {
-    try {
-      const result = await fetch(`${BASIC_CONSTANT.BACKEND_URL}/api/users`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDUxNjUzNjk1Nzg3OTI1MzM2MjciLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjYzNzM0ODQwfQ.87YvhHvGVaFbGWc81v-DKNTNU10zzrk1pQZly5gfpSQ`,
-        },
-      });
-      // get user me from api 추가
-
-      console.log((await result).json());
-      setUser();
-    } catch (e) {
-      // api error시 처리
-    }
-  };
+  const udpateUser = () => setUser({ ...user, result });
 
   const userValidation = () => {
-    const token = localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
+    const token =
+      localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN) ?? user?.token;
     if (!isPublic && !token) {
       // 로그인이 필요한 페이지에서 로그인 안했을시 정책에 따른 로직 작성
+      setUser(null);
+      localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
+      Router.push(PATH_AUTH.login.url);
     }
-    if (token) udpateUser(token);
+
+    if (token) udpateUser();
   };
 
   const handleRender = () => {
