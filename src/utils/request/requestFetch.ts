@@ -4,13 +4,22 @@ import { BASIC_CONSTANT } from "../basic.constants";
 const queryString = require("query-string");
 //
 
-export const REQUEST_TYPE = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  DELETE: "DELETE",
-  PATCH: "PATCH",
-};
+export interface IToken {
+  token: string | null | undefined;
+}
+
+export interface Ioptions {
+  token?: IToken;
+  contentType?: string;
+}
+
+export enum REQUEST_TYPE {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+  PATCH = "PATCH",
+}
 
 /**
  * @property {number} code http code
@@ -38,16 +47,16 @@ export const REQUEST_TYPE = {
  * @param {*} component
  * @param {*} isToken
  */
-export async function requestAPI(
-  url,
-  method,
-  data,
-  t = null,
+export async function requestAPI<T>(
+  url: string,
+  method: REQUEST_TYPE,
+  data: T,
+  t: IToken,
   ct = null,
   isMultiple = null
 ) {
-  let token = null;
-  let contentType = null;
+  let token;
+  let contentType;
 
   if (t) token = t;
   if (ct) contentType = ct;
@@ -65,22 +74,22 @@ export async function requestAPI(
 
 /**
  *
- * @param {*} url
- * @param {*} method
+ * @param {string} url
+ * @param {GET, POST, PUT, DELETE} method
  * @param {*} data
  * @param {*} options
  */
-export async function requestFetch(
-  url,
-  method,
-  data = {},
-  options = {},
-  isMultiple
+export async function requestFetch<T>(
+  url: string,
+  method: REQUEST_TYPE,
+  data: any,
+  options: Ioptions = {},
+  isMultiple: T
 ) {
   try {
     let Authorization = {};
 
-    if ("token" in options && options.token && options.token !== "null") {
+    if ("token" in options && options.token) {
       Authorization = { Authorization: `Bearer ${options.token}` };
       delete options.token;
     }
@@ -110,11 +119,11 @@ export async function requestFetch(
     } else if (options["contentType"] === BASIC_CONSTANT.FORMTYPE) {
       var formData = new FormData();
       for (var key in data) {
-        const item = data[key];
+        const item: any = data[key];
         if (isMultiple && /[0-9]/.test(key)) key = "files";
         formData.append(key, item);
       }
-      delete headers["Content-Type"];
+      // delete headers["Content-Type"];
       response = await fetch(url, {
         method,
         headers,
