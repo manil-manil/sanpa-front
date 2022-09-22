@@ -14,7 +14,9 @@ export default function Page(props) {
   const [user, setUser] = useRecoilState(userInfo);
   const result = useGetUser(user?.token);
 
-  const udpateUser = () => setUser({ ...user, result });
+  const udpateUser = () => {
+    if (result) setUser({ ...user, result });
+  };
 
   const userValidation = () => {
     const token =
