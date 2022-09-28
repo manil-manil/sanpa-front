@@ -21,7 +21,8 @@
     "**/*.tsx",
     "src/paths/index.js",
     "src/utils/fetch-wrapper.js",
-    "src/utils/basic.constants.js"
+    "src/utils/basic.constants.js",
+    "src/hooks/useGetUser.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -22,10 +22,10 @@ function useFetchWrapper() {
   };
 
   function request(method) {
-    return (url, body) => {
+    return (url, token, body) => {
       const requestOptions = {
         method,
-        headers: authHeader(),
+        headers: authHeader(token),
       };
       if (body) {
         requestOptions.headers["Content-Type"] = "application/json";
