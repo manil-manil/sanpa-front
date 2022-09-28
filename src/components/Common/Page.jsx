@@ -20,7 +20,7 @@ export default function Page(props) {
 
   const userValidation = () => {
     const token =
-      localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN) ?? user?.token;
+      user?.token ?? localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
     if (!isPublic && !token) {
       // 로그인이 필요한 페이지에서 로그인 안했을시 정책에 따른 로직 작성
       setUser(null);
