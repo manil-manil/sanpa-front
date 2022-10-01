@@ -6,6 +6,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["@emotion/react/types/css-prop"],
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
