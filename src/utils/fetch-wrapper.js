@@ -22,10 +22,10 @@ function useFetchWrapper() {
   };
 
   function request(method) {
-    return (url, token, body) => {
+    return (url, body) => {
       const requestOptions = {
         method,
-        headers: authHeader(token),
+        headers: authHeader(),
       };
       if (body) {
         requestOptions.headers["Content-Type"] = "application/json";
@@ -51,13 +51,17 @@ function useFetchWrapper() {
   function handleResponse(response) {
     const token =
       auth?.token ?? localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
+
     return response.text().then((text) => {
       const data = text;
+
       if (!response.ok) {
-        if ([401, 403].includes(response.status) && token) {
+        if ([401, 403].includes(response.status)) {
           // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-          // localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
-          // setAuth(null);
+          // if (token) {
+          //   localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
+          //   setAuth(null);
+          // }
           // router.replace(PATH_AUTH.login.url);
         }
 
