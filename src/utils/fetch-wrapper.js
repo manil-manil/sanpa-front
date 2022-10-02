@@ -1,6 +1,4 @@
-import { useRecoilState } from "recoil";
-import router from "next/router";
-import { userInfo } from "../recoil/user";
+import axios from "axios";
 import { BASIC_CONSTANT } from "./basic.constants";
 import { PATH_AUTH } from "../paths";
 
@@ -11,9 +9,7 @@ export const METHODS = {
   DELETE: "delete",
 };
 
-function useFetchWrapper() {
-  const [auth, setAuth] = useRecoilState(userInfo);
-
+function fetchWrapper() {
   return {
     get: request(METHODS.GET),
     post: request(METHODS.POST),
@@ -22,7 +18,8 @@ function useFetchWrapper() {
   };
 
   function request(method) {
-    return (url, token, body) => {
+    return async (path, token, body) => {
+      const url = `${BASIC_CONSTANT.BACKEND_URL}/${path}`;
       const requestOptions = {
         method,
         headers: authHeader(token),
@@ -31,14 +28,12 @@ function useFetchWrapper() {
         requestOptions.headers["Content-Type"] = "application/json";
         requestOptions.body = JSON.stringify(body);
       }
-      return fetch(url, requestOptions).then(handleResponse);
+
+      return axios[method](url, requestOptions).then(handleResponse);
     };
   }
 
-  function authHeader() {
-    // return auth header with jwt if user is logged in and request is to the api url
-    const token =
-      auth?.token ?? localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
+  function authHeader(token) {
     const isLoggedIn = !!token;
 
     if (isLoggedIn) {
@@ -49,25 +44,12 @@ function useFetchWrapper() {
   }
 
   function handleResponse(response) {
-    const token =
-      auth?.token ?? localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
-    return response.text().then((text) => {
-      const data = text;
-      if (!response.ok) {
-        if ([401, 403].includes(response.status) && token) {
-          // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-          // localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
-          // setAuth(null);
-          // router.replace(PATH_AUTH.login.url);
-        }
+    if (response.status !== 200 && response.status !== 201) {
+      throw { status: response.status, text: response.statusText };
+    }
 
-        const error = (data && data.message) || response.statusText;
-        return Promise.reject(error);
-      }
-
-      return JSON.parse(data);
-    });
+    return response.data;
   }
 }
 
-export { useFetchWrapper };
+export default fetchWrapper;
