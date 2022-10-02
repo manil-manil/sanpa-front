@@ -18,6 +18,7 @@ const ROOTS = "";
 const ROOTS_ERROR = "error";
 const ROOTS_AUTH = "oauth";
 const ROOTS_QUESTION = "question";
+const ROOTS_CATEGORY = "category";
 
 export const PATH_ERROR = {
   root: path(ROOTS_ERROR, null),
@@ -27,13 +28,17 @@ export const PATH_ERROR = {
 
 export const PATH_PAGE = {
   root: path(ROOTS),
-  category: path(ROOTS, "category", false),
 };
 
 export const PATH_AUTH = {
   root: path(ROOTS_AUTH),
   login: path(ROOTS_AUTH, "login", true),
   success: path(ROOTS_AUTH, "success", true),
+};
+
+export const PATH_CATEGORY = {
+  list: path(ROOTS_CATEGORY, "list", false),
+  detail: (id) => path(ROOTS_CATEGORY, id, false),
 };
 
 export const PATH_QUESTION = {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "next/router";
 import { BASIC_CONSTANT } from "./basic.constants";
 import { PATH_AUTH } from "../paths";
 
@@ -29,7 +30,9 @@ function fetchWrapper() {
         requestOptions.body = JSON.stringify(body);
       }
 
-      return axios[method](url, requestOptions).then(handleResponse);
+      return axios[method](url, requestOptions)
+        .then(handleResponse)
+        .catch(handleError);
     };
   }
 
@@ -49,6 +52,13 @@ function fetchWrapper() {
     }
 
     return response.data;
+  }
+
+  function handleError(error) {
+    if (error.response.status === 401) {
+      localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
+      router.push(PATH_AUTH.login.url);
+    }
   }
 }
 
