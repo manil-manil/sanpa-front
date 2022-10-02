@@ -1,32 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
-import Router from "next/router";
-import { useSetRecoilState } from "recoil";
 
-import { BASIC_CONSTANT } from "../../utils/basic.constants";
-import { userInfo } from "../../recoil/user";
 import Layout from "../Layouts";
-import useGetUser from "../../hooks/useGetUser";
-import { PATH_AUTH } from "../../paths";
+import useUser from "../../hooks/useUser";
 
 export default function Page(props) {
   const { variant = "client", children, isPublic = true, title = "" } = props;
-  const setUserInfoState = useSetRecoilState(userInfo);
-  const user = useGetUser();
-
-  useEffect(() => {
-    setUserInfoState(user);
-  }, [user]);
-
-  const userValidation = () => {
-    const token = localStorage.getItem(BASIC_CONSTANT.CLIENT_TOKEN);
-    if (!isPublic && !token) {
-      // 로그인이 필요한 페이지에서 로그인 안했을시 정책에 따른 로직 작성
-      setUserInfoState(null);
-      localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
-      Router.push(PATH_AUTH.login.url);
-    }
-  };
+  useUser(isPublic);
 
   const handleRender = () => {
     try {
@@ -35,10 +15,6 @@ export default function Page(props) {
       return "error";
     }
   };
-
-  useEffect(() => {
-    userValidation();
-  }, []);
 
   return (
     <>

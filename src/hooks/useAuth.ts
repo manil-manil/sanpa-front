@@ -1,3 +1,4 @@
+import { defaultUserData } from "./../recoil/user";
 import { useRecoilState } from "recoil";
 import Router from "next/router";
 import { BASIC_CONSTANT } from "../utils/basic.constants";
@@ -12,7 +13,7 @@ export default function useAuth() {
 
   const logout = () => {
     localStorage.removeItem(BASIC_CONSTANT.CLIENT_TOKEN);
-    setUser(null);
+    setUser(defaultUserData);
     Router.push(PATH_AUTH.login.url);
   };
   return { login, logout };
