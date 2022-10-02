@@ -14,6 +14,7 @@ export default function CategoryPage() {
   const { isLoading } = useQuery(["api/category"], () => getCategorios(token), {
     enabled: !!token,
     onSuccess: (data) => {
+      console.log("data", data);
       setCategories(data);
     },
     onError: (error) => {

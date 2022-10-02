@@ -8,3 +8,5 @@ export const getCategorios = (token: string) => {
 
   return response;
 };
+
+export const getCategoryNodes = (token: string) => {};
