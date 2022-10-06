@@ -1,5 +1,4 @@
 export default function NodeComponent(data: any) {
-  console.log(data);
   return (
     <>
       <circle r="5"></circle>

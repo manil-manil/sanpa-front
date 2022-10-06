@@ -9,4 +9,8 @@ export const getCategorios = (token: string) => {
   return response;
 };
 
-export const getCategoryNodes = (token: string) => {};
+export const getCategory = (token: string, id: number) => {
+  const response = get(`api/categories/${id}`, token);
+
+  return response;
+};

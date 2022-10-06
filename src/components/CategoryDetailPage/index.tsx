@@ -1,4 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { getCategory } from "../../api/category.api";
+import useLocalstorage from "../../hooks/useLocalstorage";
+import { BASIC_CONSTANT } from "../../utils/basic.constants";
 import Presenter from "./Presenter";
 
 const orgChart = {
@@ -55,5 +60,17 @@ const orgChart = {
 
 export default function CategoryDetailPage() {
   const [nodes, setNodes] = useState(orgChart);
+  const token = useLocalstorage(BASIC_CONSTANT.CLIENT_TOKEN);
+  const router = useRouter();
+  const { id } = router.query;
+  const enabled = !!token && !!id;
+
+  useQuery([`api/categories/${id}`], () => getCategory(token, Number(id)), {
+    enabled,
+    onSuccess: (data) => {
+      setNodes(data.nodes);
+    },
+  });
+
   return <Presenter nodes={nodes} />;
 }
