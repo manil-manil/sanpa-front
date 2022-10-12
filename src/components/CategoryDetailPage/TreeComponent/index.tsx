@@ -17,7 +17,7 @@ interface IProps {
 
 const customPathClassFunc = (data: any) => {
   return getActivateClassName(
-    data.target ? data.target.data.attributes.percent : null
+    data.target ? data.target.data.attributes?.percent : null
   );
 };
 
