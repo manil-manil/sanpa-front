@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import TreePage from "../src/components/TreePage";
+
 import Page from "../src/components/Common/Page";
 
 /**
@@ -7,11 +7,7 @@ import Page from "../src/components/Common/Page";
  */
 
 const Home: NextPage = () => {
-  return (
-    <Page title="Tree Page">
-      <TreePage />
-    </Page>
-  );
+  return <Page title="Tree Page">메인화면 하이</Page>;
 };
 
 export default Home;
