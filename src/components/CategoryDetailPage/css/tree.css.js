@@ -1,18 +1,17 @@
 import { css } from "@emotion/react";
 
 export default css`
-  #treeWrapper {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(34, 34, 34);
-    .rd3t-label__title {
-      stroke: #fff;
-      font-weight: 100 !important;
-    }
-    .rd3t-node {
-      stroke-width: 1;
-    }
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(34, 34, 34);
+  .rd3t-label__title {
+    stroke: #fff;
+    font-weight: 100 !important;
   }
+  .rd3t-node {
+    stroke-width: 1;
+  }
+
   .rd3t-link {
     fill: #fff;
   }

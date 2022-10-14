@@ -1,6 +1,8 @@
 import { atom } from "recoil";
 
+export const defaultUserData = {};
+
 export const userInfo = atom({
-  key: `userInfo${+new Date()}`,
-  default: {},
+  key: `userInfo`,
+  default: defaultUserData,
 });
