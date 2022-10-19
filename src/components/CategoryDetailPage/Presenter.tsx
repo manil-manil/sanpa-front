@@ -8,8 +8,9 @@ const TreeComponent = dynamic(() => import("./TreeComponent"), {
 
 interface IProps {
   nodes: INode;
+  setSelectedNode: (data: any) => void;
 }
 
-export default function Presenter({ nodes }: IProps) {
-  return <TreeComponent data={nodes} />;
+export default function Presenter({ nodes, setSelectedNode }: IProps) {
+  return <TreeComponent data={nodes} setSelectedNode={setSelectedNode} />;
 }

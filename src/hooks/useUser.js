@@ -14,7 +14,7 @@ export default function useUser(isPublic) {
 
   const enabled = !!token && Object.keys(user).length === 0;
 
-  useQuery(["api/users"], () => getMe(token), {
+  useQuery(["api/user s"], () => getMe(token), {
     enabled,
     retry: 1,
     onSuccess: (data) => {

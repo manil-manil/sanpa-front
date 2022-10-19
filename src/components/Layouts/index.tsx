@@ -1,4 +1,5 @@
 // components
+import DialogComponent from "../Common/Dialog";
 import ClientLayout from "./Client";
 
 /**
@@ -27,7 +28,7 @@ export default function Layout({ variant = "client", children }: ILayout) {
   return (
     <>
       {ReturnComponent}
-      {/* 알럿 */}
+      <DialogComponent />
       {/* toast */}
     </>
   );

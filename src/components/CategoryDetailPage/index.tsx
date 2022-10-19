@@ -1,10 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { getCategory } from "../../api/category.api";
+import { getNodeQuestion } from "../../api/question.api";
 import useLocalstorage from "../../hooks/useLocalstorage";
+import { modalAtom } from "../../recoil/modal";
 import { BASIC_CONSTANT } from "../../utils/basic.constants";
 import Presenter from "./Presenter";
+import QuestionDetail from "./QuestionDetail";
+import { INode } from "./TreeComponent";
 
 const orgChart = {
   name: "그림",
@@ -58,12 +63,20 @@ const orgChart = {
   ],
 };
 
+interface SelectedNode extends INode {
+  id: number;
+}
+
 export default function CategoryDetailPage() {
   const [nodes, setNodes] = useState(orgChart);
+  const [selectedNode, setSelectedNode] = useState<SelectedNode>();
+  const setDialogState = useSetRecoilState(modalAtom);
+
   const token = useLocalstorage(BASIC_CONSTANT.CLIENT_TOKEN);
   const router = useRouter();
   const { id } = router.query;
   const enabled = !!token && !!id;
+  const enabledQuestion = enabled && !!selectedNode?.id;
 
   useQuery([`api/categories/${id}`], () => getCategory(token, Number(id)), {
     enabled,
@@ -72,5 +85,30 @@ export default function CategoryDetailPage() {
     },
   });
 
-  return <Presenter nodes={nodes} />;
+  useQuery(
+    [`api/questions/node/${selectedNode?.id}`],
+    () => getNodeQuestion(token, selectedNode?.id),
+    {
+      enabled: enabledQuestion,
+      onSuccess: (data) => {
+        setDialogState({
+          isOpen: true,
+          title: "문제들",
+          confirmText: "제출",
+          cancelText: "취소",
+          content: <QuestionDetail data={data} />,
+        });
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    }
+  );
+
+  return (
+    <Presenter
+      nodes={nodes}
+      setSelectedNode={() => setSelectedNode({ id: 1 })}
+    />
+  );
 }
