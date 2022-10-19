@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-cookie", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:4.1.1"],\
             ["react-d3-tree", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:3.3.4"],\
             ["react-dom", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:18.2.0"],\
+            ["react-hook-form", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:7.38.0"],\
             ["recoil", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:0.7.5"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
           ],\
@@ -3871,6 +3872,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-cookie", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:4.1.1"],\
             ["react-d3-tree", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:3.3.4"],\
             ["react-dom", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:18.2.0"],\
+            ["react-hook-form", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:7.38.0"],\
             ["recoil", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:0.7.5"],\
             ["typescript", "patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"]\
           ],\
@@ -4300,6 +4302,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["loose-envify", "npm:1.4.0"],\
             ["react", "npm:18.2.0"],\
             ["scheduler", "npm:0.23.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-hook-form", [\
+        ["npm:7.38.0", {\
+          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.38.0-72b65c1bad-16d5f117e3.zip/node_modules/react-hook-form/",\
+          "packageDependencies": [\
+            ["react-hook-form", "npm:7.38.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:7.38.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-8dcf6e31d8/0/cache/react-hook-form-npm-7.38.0-72b65c1bad-16d5f117e3.zip/node_modules/react-hook-form/",\
+          "packageDependencies": [\
+            ["react-hook-form", "virtual:2516e22cd04ac41ec3ce0ee20893118c7da4b1848396d1c72ffcbddbe95d5655a64fd6bd6e1d738630b84aeddf1f28995826b0195d63595a85d1cff952617b1c#npm:7.38.0"],\
+            ["@types/react", "npm:18.0.20"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
