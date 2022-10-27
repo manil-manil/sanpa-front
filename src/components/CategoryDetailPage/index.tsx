@@ -52,7 +52,7 @@ export default function CategoryDetailPage() {
   });
 
   useQuery(
-    [`api/questions/node/${selectedNode?.id}`],
+    [`api/questions/node/${selectedNode?.id}`, selectedNode?.id],
     () => getNodeQuestion(token, selectedNode?.id),
     {
       enabled: enabledQuestion,
@@ -74,7 +74,7 @@ export default function CategoryDetailPage() {
   return (
     <Presenter
       nodes={nodes}
-      setSelectedNode={() => setSelectedNode({ id: 1 })}
+      setSelectedNode={(data) => setSelectedNode(data)}
     />
   );
 }

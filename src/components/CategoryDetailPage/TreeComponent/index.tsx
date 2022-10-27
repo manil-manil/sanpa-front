@@ -31,9 +31,7 @@ const getActivateClassName = (percent: number) => {
 export default function TreeComponent({ data, setSelectedNode }: IProps) {
   const [translate, containerRef] = useCenteredTree();
 
-  const onNodeClick = (node: any) => {
-    setSelectedNode(node.data);
-  };
+  const onNodeClick = (node: any) => setSelectedNode(node?.data);
 
   return (
     <div id="treeWrapper" css={style} ref={containerRef}>
