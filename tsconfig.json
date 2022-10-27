@@ -23,7 +23,9 @@
     "src/paths/index.js",
     "src/utils/fetch-wrapper.js",
     "src/utils/basic.constants.js",
-    "src/hooks/useUser.js"
+    "src/utils/form.constants.js",
+    "src/hooks/useUser.js",
+    "src/utils/json/question.json.js"
   ],
   "exclude": ["node_modules"]
 }

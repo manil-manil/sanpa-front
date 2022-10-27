@@ -1,6 +1,17 @@
+import React from "react";
 import { atom } from "recoil";
 
-export const defaultModaldata = {
+interface IModalData {
+  isOpen: boolean;
+  title: string | HTMLElement;
+  content: null;
+  confirmText: "확인";
+  cancelText: "";
+  onConfirm: null;
+  onCancel: null;
+}
+
+export const defaultModaldata: IModalData = {
   isOpen: false,
   title: "",
   content: null,

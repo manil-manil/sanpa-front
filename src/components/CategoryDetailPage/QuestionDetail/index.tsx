@@ -1,7 +1,9 @@
 import { Box } from "@mui/material";
-import RadioGroupComponent from "../../Common/RadioGroup";
+
+import FormContainer from "../../Form";
 
 export default function QuestionDetail(params) {
+  console.log(params);
   return (
     <Box>
       {params.data.map((item, index) => {
@@ -11,7 +13,7 @@ export default function QuestionDetail(params) {
               <span>{index + 1}.</span>
               <span>{item.title}</span>
             </h2>
-            <RadioGroupComponent data={item.choices} />
+            {/* <FormContainer /> */}
           </div>
         );
       })}

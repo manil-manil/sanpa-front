@@ -27,7 +27,9 @@ export default function DialogComponent() {
         <DialogTitle>{state.title}</DialogTitle>
         <DialogContent>{state.content}</DialogContent>
         <DialogActions>
-          <Button onClick={handleConfirm}>{state.confirmText}</Button>
+          {state.confirmText && (
+            <Button onClick={handleConfirm}>{state.confirmText}</Button>
+          )}
           {state.cancelText && (
             <Button onClick={handleConfirm}>{state.cancelText}</Button>
           )}
