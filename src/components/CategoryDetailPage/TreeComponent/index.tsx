@@ -13,6 +13,7 @@ export interface INode {
 
 interface IProps {
   data: INode;
+  setSelectedNode: (data: any) => void;
 }
 
 const customPathClassFunc = (data: any) => {
@@ -27,8 +28,12 @@ const getActivateClassName = (percent: number) => {
     : "";
 };
 
-export default function TreeComponent({ data }: IProps) {
+export default function TreeComponent({ data, setSelectedNode }: IProps) {
   const [translate, containerRef] = useCenteredTree();
+
+  const onNodeClick = (node: any) => {
+    setSelectedNode(node.data);
+  };
 
   return (
     <div id="treeWrapper" css={style} ref={containerRef}>
@@ -42,6 +47,7 @@ export default function TreeComponent({ data }: IProps) {
         branchNodeClassName="node__branch"
         leafNodeClassName="node__leaf"
         pathClassFunc={customPathClassFunc}
+        onNodeClick={onNodeClick}
       />
     </div>
   );
